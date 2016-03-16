@@ -1,7 +1,7 @@
-# Class: magnolia
+# Class: magnolia:::service
 # ===========================
 #
-# Full description of class magnolia here.
+# Service for managing Magnolia CMS.
 #
 # Parameters
 # ----------
@@ -42,9 +42,14 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class magnolia {
-	include java
-	include limits
-	include apt
+class magnolia::service { '':
+	enable      => true,
+	ensure      => running,
+	#hasrestart => true,
+	#hasstatus  => true,
+	#require    => Class["config"],
+} inherits magnolia {
 
-}
+      
+
+    }

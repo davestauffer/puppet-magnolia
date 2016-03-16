@@ -1,7 +1,7 @@
-# Class: magnolia
+# Class: magnolia:::install
 # ===========================
 #
-# Full description of class magnolia here.
+# Installs Magnolia CMS.
 #
 # Parameters
 # ----------
@@ -42,9 +42,8 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class magnolia {
-	include java
-	include limits
-	include apt
+class magnolia::install inherits magnolia {
 
-}
+      
+
+    }
