@@ -1,0 +1,15 @@
+{
+  "name": "davestauffer-magnolia",
+  "version": "0.1.0",
+  "author": "davestauffer",
+  "summary": "A puppet module to install Magnolia CMS",
+  "license": "Apache-2.0",
+  "source": "https://github.com/davestauffer/puppet-magnolia",
+  "project_page": "https://github.com/davestauffer/puppet-magnolia",
+  "issues_url": "https://github.com/davestauffer/puppet-magnolia/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
