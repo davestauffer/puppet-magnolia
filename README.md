@@ -14,44 +14,26 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
-
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This Puppet module installs and configures Magnolia CMS as well as creates services to manage the applications state.
 
 ## Setup
 
-### What magnolia affects **OPTIONAL**
+### What magnolia affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+* Supports installation and configuration on Ubuntu 14.04
+* Installs Oracle Java 8 using webupd8team apt repository
+* Sets limits.conf for higher open files handles on 
+* Installs Magnolia CMS bundle with an embedded Tomcat server
+* Configures Magnolia CMS
+* Configures the embedded Tomcat server
 
-If there's more that they should know about, though, this is the place to mention:
+### Setup Requirements
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+* Requires Puppet v4.3.2
 
 ### Beginning with magnolia
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+You should download this module to your puppet master from the puppetforge using the puppet module command
 
 ## Usage
 
