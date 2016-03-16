@@ -43,6 +43,8 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class magnolia {
-
+	include java
+	include limits
+	include apt
 
 }
