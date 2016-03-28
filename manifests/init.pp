@@ -1,48 +1,70 @@
 # Class: magnolia
 # ===========================
 #
-# Full description of class magnolia here.
+# This class will install either the Magnolia Community Edition or Enterprise Pro edition bundle
+# which includes the demo travel project and embedded Apache Tomcat using the Puppet::Archive
+# module to download the bundle zip file.  Puppet::Staging is currently included in case Archive
+# does not work.
 #
 # Parameters
 # ----------
 #
-# Document parameters here.
-#
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
-#
+# $edition is either magnolia 'community' or 'enterprise-pro'
+# 
 # Variables
 # ----------
 #
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# 
 #
 # Examples
 # --------
 #
 # @example
 #    class { 'magnolia':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#      
 #    }
 #
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Dave Stauffer <davetst@gmail.com>
 #
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
-class magnolia {
+class magnolia (
+
+
+	# Magnolia Settings
+	$edition             = 'enterprise-pro',
+	$version             = '5.4.5',
+	$format              = 'zip',
+	$installdir          = '/opt/MagnoliaEnterpriseEdition',
+	$user                = 'root',
+	$group               = 'root',
+
+	# Download Settings
+	$download_url          = 'https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/',
+
+	# Choose whether to use puppet-staging, or puppet-archive
+	$deploy_module = 'archive',
+
+	# Database Settings
+
+	# Postgresql Settings
+
+	# Manage service
+	$service_manage = true,
+	$service_ensure = running,
+	$service_enable = true,
+	$service_notify = undef,
+	$service_subscribe = undef,
+
+
+)
+{
 	include java
 	include limits
 	include apt
