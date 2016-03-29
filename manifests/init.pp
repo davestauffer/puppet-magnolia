@@ -41,7 +41,7 @@ class magnolia (
 	$edition             = 'enterprise-pro',
 	$version             = '5.4.5',
 	$format              = 'zip',
-	$installdir          = '/opt/MagnoliaEnterpriseEdition',
+	$installdir          = '/opt',
 	$user                = 'root',
 	$group               = 'root',
 
