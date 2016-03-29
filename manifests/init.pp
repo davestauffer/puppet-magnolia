@@ -69,4 +69,8 @@ class magnolia (
 	include limits
 	include apt
 
+	anchor { 'magnolia::start': } ->
+	class { '::magnolia::install': } ->
+	anchor { 'magnolia::end': }
+
 }

@@ -32,11 +32,11 @@
 # Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
 class magnolia::install inherits magnolia {
-	include '::archive'
+	include archive
 
-	$server_package = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}",
+	$server_package = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
 
-	case $magnolia::deploy_module #{
+	case $magnolia::deploy_module {
     #'staging': {
     #  require staging
     #  staging::file { $server_package:
@@ -61,10 +61,6 @@ class magnolia::install inherits magnolia {
         extract_path    => $magnolia::installdir,
         source          => "${magnolia::download_url}/${server_package}",
         user            => $magnolia::user,
-        require         => [
-          File[$magnolia::installdir],
-          User[$magnolia::user],
-        ],
       }
     }
     default: {
