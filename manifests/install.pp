@@ -32,35 +32,33 @@
 # Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
 class magnolia::install inherits magnolia {
-	include archive
 
-	$server_package = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
+    $filename = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
+    $download_path = "magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-${edition}-demo-bundle/${version}"
+    $install_path = "/opt/magnolia-enterprise-${magnolia::version}"
 
-	case $magnolia::deploy_module {
-    #'staging': {
-    #  require staging
-    #  staging::file { $server_package:
-    #    source  => "${magnolia::download_url}/${server_package}",
-    #    timeout => 1800,
-    #  } ->
-    #  staging::extract { $server_package:
-    #    target  => $magnolia::installdir,
-    #    strip   => 1,
-    #    user    => $magnolia::user,
-    #    group   => $magnolia::group,
-    #    notify  => Exec["chown_${jira::installdir}"],
-    #    require => [
-    #      File[$magnolia::installdir],
-    #      User[$magnolia::user],
-    #      File[$magnolia::installdir] ],
-    #  }
-    #}
+
+    file { $install_path:
+       ensure => directory,
+       owner  => $magnolia::user,
+       group  => $magnolia::group,
+       mode   => '0755',
+    }
+
+   case $magnolia::deploy_module {
     'archive': {
-      archive { "${magnolia::download_url}/${server_package}":
+      archive { $filename:
+        path            => "/tmp/${filename}",
+        source          => "${magnolia::download_site}/$download_path/${filename}",
         extract         => true,
-        extract_path    => $magnolia::installdir,
-        source          => "${magnolia::download_url}/${server_package}",
+        extract_path    => '/opt',
+        creates         => "${install_path}/LICENSE.txt",
+        cleanup         => true,
         user            => $magnolia::user,
+        group           => $magnolia::group,
+        username        => 'ssalvatore',
+        password        => 'ZLnb8iO4fr',
+        require         => File[$install_path],
       }
     }
     default: {
@@ -68,3 +66,4 @@ class magnolia::install inherits magnolia {
     }
   }
  }
+       

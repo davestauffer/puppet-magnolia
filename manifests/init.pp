@@ -46,7 +46,7 @@ class magnolia (
 	$group               = 'root',
 
 	# Download Settings
-	$download_url          = 'https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/',
+	$download_site          = 'https://nexus.magnolia-cms.com/content/repositories',
 
 	# Choose whether to use puppet-staging, or puppet-archive
 	$deploy_module = 'archive',
@@ -68,6 +68,7 @@ class magnolia (
 	include java
 	include limits
 	include apt
+	include archive
 
 	anchor { 'magnolia::start': } ->
 	class { '::magnolia::install': } ->
