@@ -37,33 +37,27 @@
 class magnolia (
 
 
-	# Magnolia Settings
-	$edition             = 'enterprise-pro',
-	$version             = '5.4.5',
-	$format              = 'zip',
-	$user                = 'root',
-	$group               = 'root',
+	# Magnolia Install Parameters
+	$edition             = $magnolia::params::edition,
+	$version             = $magnolia::params::version,
+	$format              = $magnolia::params::format,
+	$user                = $magnolia::params::user,
+	$group               = $magnolia::params::group,
 
 	# Download Settings
-	$download_site          = 'https://nexus.magnolia-cms.com/content/repositories',
+	$download_site       = $magnolia::params::download_site,
 
-	# Choose whether to use puppet-staging, or puppet-archive
-	$deploy_module = 'archive',
-
-	# Database Settings
-
-	# Postgresql Settings
+	# Persistence Settings
 
 	# Manage service
-	$service_manage = true,
-	$service_ensure = running,
-	$service_enable = true,
-	$service_notify = undef,
-	$service_subscribe = undef,
+	$service_manage      = $magnolia::params::service_manage,
+	$service_ensure      = $magnolia::params::service_ensure,
+	$service_enable      = $magnolia::params::service_enable,
+	$service_notify      = $magnolia::params::service_notify,
+	$service_subscribe   = $magnolia::params::service_subscribe,
 
 
-)
-{
+) inherits magnolia::params {
 
 	include java
 	include limits
@@ -71,20 +65,15 @@ class magnolia (
 	include archive
 
 	case $::operatingsystem {
-    'Ubuntu': {
-      package { 'unzip':
-    	ensure => installed,
-      }
+      'Ubuntu': { }
+      default: {
+        fail("Unsupported operatingsystem: ${::operatingsystem}")
+       }
     }
-    default: {
-      fail("Unsupported operatingsystem: ${::operatingsystem}")
-     }
-  }
-
-    
 
 	anchor { 'magnolia::start': } ->
-	class { '::magnolia::install': } ->
+	  class { '::magnolia::config': } ->
+	  class { '::magnolia::install': } ->
 	anchor { 'magnolia::end': }
 
 }

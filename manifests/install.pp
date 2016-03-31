@@ -33,20 +33,9 @@
 #
 class magnolia::install inherits magnolia {
 
-    $filename = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
-    $download_path = "magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-${edition}-demo-bundle/${version}"
-    $install_path = "/opt/magnolia-enterprise-${magnolia::version}"
-
-
-    file { $install_path:
-       ensure => directory,
-       owner  => $magnolia::user,
-       group  => $magnolia::group,
-       mode   => '0755',
-    }
-
-   case $magnolia::deploy_module {
-    'archive': {
+  $filename = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
+  $download_path = "magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-${edition}-demo-bundle/${version}"
+    
       archive { $filename:
         path            => "/tmp/${filename}",
         source          => "${magnolia::download_site}/$download_path/${filename}",
@@ -56,14 +45,9 @@ class magnolia::install inherits magnolia {
         cleanup         => true,
         user            => $magnolia::user,
         group           => $magnolia::group,
-        username        => 'ssalvatore',
-        password        => 'ZLnb8iO4fr',
+        username        => 'your user name here',
+        password        => 'your password here',
         require         => File[$install_path],
       }
-    }
-    default: {
-      fail('deploy_module parameter must equal "archive" or staging""')
-    }
-  }
  }
        
