@@ -41,7 +41,6 @@ class magnolia (
 	$edition             = 'enterprise-pro',
 	$version             = '5.4.5',
 	$format              = 'zip',
-	$installdir          = '/opt',
 	$user                = 'root',
 	$group               = 'root',
 
@@ -65,10 +64,24 @@ class magnolia (
 
 )
 {
+
 	include java
 	include limits
 	include apt
 	include archive
+
+	case $::operatingsystem {
+    'Ubuntu': {
+      package { 'unzip':
+    	ensure => installed,
+      }
+    }
+    default: {
+      fail("Unsupported operatingsystem: ${::operatingsystem}")
+     }
+  }
+
+    
 
 	anchor { 'magnolia::start': } ->
 	class { '::magnolia::install': } ->
