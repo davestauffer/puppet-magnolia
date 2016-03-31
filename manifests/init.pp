@@ -38,32 +38,26 @@ class magnolia (
 
 
 	# Magnolia Install Parameters
-	$edition             = 'enterprise-pro',
-	$version             = '5.4.5',
-	$format              = 'zip',
-	$user                = 'root',
-	$group               = 'root',
+	$edition             = $magnolia::params::edition,
+	$version             = $magnolia::params::version,
+	$format              = $magnolia::params::format,
+	$user                = $magnolia::params::user,
+	$group               = $magnolia::params::group,
 
 	# Download Settings
-	$download_site          = 'https://nexus.magnolia-cms.com/content/repositories',
+	$download_site       = $magnolia::params::download_site,
 
-	# Choose whether to use puppet-staging, or puppet-archive
-	$deploy_module = 'archive',
-
-	# Database Settings
-
-	# Postgresql Settings
+	# Persistence Settings
 
 	# Manage service
-	$service_manage = true,
-	$service_ensure = running,
-	$service_enable = true,
-	$service_notify = undef,
-	$service_subscribe = undef,
+	$service_manage      = $magnolia::params::service_manage,
+	$service_ensure      = $magnolia::params::service_ensure,
+	$service_enable      = $magnolia::params::service_enable,
+	$service_notify      = $magnolia::params::service_notify,
+	$service_subscribe   = $magnolia::params::service_subscribe,
 
 
-)
-{
+) inherits magnolia::params {
 
 	include java
 	include limits
@@ -76,9 +70,6 @@ class magnolia (
         fail("Unsupported operatingsystem: ${::operatingsystem}")
        }
     }
-
-	# Magnolia install path, put in params.pp
-	$install_path = "/opt/magnolia-enterprise-${magnolia::version}"
 
 	anchor { 'magnolia::start': } ->
 	  class { '::magnolia::config': } ->
