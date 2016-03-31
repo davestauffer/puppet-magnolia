@@ -37,7 +37,7 @@
 class magnolia (
 
 
-	# Magnolia Settings
+	# Magnolia Install Parameters
 	$edition             = 'enterprise-pro',
 	$version             = '5.4.5',
 	$format              = 'zip',
@@ -71,20 +71,18 @@ class magnolia (
 	include archive
 
 	case $::operatingsystem {
-    'Ubuntu': {
-      package { 'unzip':
-    	ensure => installed,
-      }
+      'Ubuntu': { }
+      default: {
+        fail("Unsupported operatingsystem: ${::operatingsystem}")
+       }
     }
-    default: {
-      fail("Unsupported operatingsystem: ${::operatingsystem}")
-     }
-  }
 
-    
+	# Magnolia install path, put in params.pp
+	$install_path = "/opt/magnolia-enterprise-${magnolia::version}"
 
 	anchor { 'magnolia::start': } ->
-	class { '::magnolia::install': } ->
+	  class { '::magnolia::config': } ->
+	  class { '::magnolia::install': } ->
 	anchor { 'magnolia::end': }
 
 }

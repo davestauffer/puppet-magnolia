@@ -24,26 +24,29 @@
 #  global variables should be avoided in favor of class parameters as
 #  of Puppet 2.6.)
 #
-# Examples
-# --------
-#
-# @example
-#    class { 'magnolia':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
-#
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Dave Stauffer <davetst@gmail.com>
 #
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
 class magnolia::config inherits magnolia {
 
+	
+    package { 'unzip':
+       ensure => installed,
+    }
       
 
+    file { $install_path:
+       ensure => directory,
+       owner  => $magnolia::user,
+       group  => $magnolia::group,
+       mode   => '0755',
     }
+
+}
