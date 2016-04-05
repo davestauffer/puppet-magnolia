@@ -32,22 +32,19 @@
 # Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
 class magnolia::install inherits magnolia {
-
-  $filename = "magnolia-${magnolia::edition}-demo-bundle-${magnolia::version}-tomcat-bundle.${magnolia::format}"
-  $download_path = "magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-${edition}-demo-bundle/${version}"
     
-      archive { $filename:
-        path            => "/tmp/${filename}",
-        source          => "${magnolia::download_site}/$download_path/${filename}",
+      archive { $magnolia_filename:
+        path            => "/tmp/${magnolia::magnolia_filename}",
+        source          => $magnolia::magnolia_download_url,
         extract         => true,
-        extract_path    => '/opt',
-        creates         => "${install_path}/LICENSE.txt",
+        extract_path    => $magnolia::install_dir,
+        creates         => "${magnolia::install_dir}/LICENSE.txt",
         cleanup         => true,
         user            => $magnolia::user,
         group           => $magnolia::group,
         username        => 'your user name here',
         password        => 'your password here',
-        require         => File[$install_path],
+        require         => File[$magnolia::install_dir],
       }
  }
        

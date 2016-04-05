@@ -38,38 +38,29 @@ class magnolia (
 
 
 	# Magnolia Install Parameters
-	$edition             = $magnolia::params::edition,
-	$version             = $magnolia::params::version,
-	$format              = $magnolia::params::format,
-	$user                = $magnolia::params::user,
-	$group               = $magnolia::params::group,
+	$license_type          = $magnolia::params::license_type
+	$edition               = $magnolia::params::edition,
+	$magnolia_version      = $magnolia::params::version,
+	$user                  = $magnolia::params::user,
+	$group                 = $magnolia::params::group,
 
 	# Download Settings
-	$download_site       = $magnolia::params::download_site,
+	$magnolia_download_url = $magnolia::params::magnolia_download_url,
 
 	# Persistence Settings
 
 	# Manage service
-	$service_manage      = $magnolia::params::service_manage,
-	$service_ensure      = $magnolia::params::service_ensure,
-	$service_enable      = $magnolia::params::service_enable,
-	$service_notify      = $magnolia::params::service_notify,
-	$service_subscribe   = $magnolia::params::service_subscribe,
+	$service_manage        = $magnolia::params::service_manage,
+	$service_ensure        = $magnolia::params::service_ensure,
+	$service_enable        = $magnolia::params::service_enable,
+	$service_notify        = $magnolia::params::service_notify,
+	$service_subscribe     = $magnolia::params::service_subscribe,
 
 
 ) inherits magnolia::params {
 
-	include java
 	include limits
-	include apt
 	include archive
-
-	case $::operatingsystem {
-      'Ubuntu': { }
-      default: {
-        fail("Unsupported operatingsystem: ${::operatingsystem}")
-       }
-    }
 
 	anchor { 'magnolia::start': } ->
 	  class { '::magnolia::config': } ->

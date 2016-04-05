@@ -36,17 +36,32 @@
 #
 class magnolia::config inherits magnolia {
 
-	
-    package { 'unzip':
-       ensure => installed,
-    }
-      
+  case $::operatingsystem {
+      'Ubuntu': {
+        include apt
 
-    file { $install_path:
-       ensure => directory,
-       owner  => $magnolia::user,
-       group  => $magnolia::group,
-       mode   => '0755',
-    }
+        class{'java':
+          repository            => 'webupd8team',
+          distribution          => 'oracle',
+          release               => 'java8',
+          accept_oracle_license => true,
+        }
+        
+        package { 'unzip':
+          ensure => installed,
+        }
+
+       }
+      default: {
+        fail("Unsupported operatingsystem: ${::operatingsystem}")
+       }
+    } 
+
+  file { $install_dir:
+    ensure => directory,
+    owner  => $magnolia::user,
+    group  => $magnolia::group,
+    mode   => '0755',
+  }
 
 }
