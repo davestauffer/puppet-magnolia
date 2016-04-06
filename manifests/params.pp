@@ -35,7 +35,7 @@ class magnolia::params {
   $license_type        = 'enterprise'
   $edition             = 'pro'
   $magnolia_version    = '5.4.3'
-  $demo                = undef
+  $demo                = '-demo'
   $bundle              = 'tomcat'
   $bundle_format       = 'tar.gz'
   $user                = 'root'
@@ -48,11 +48,11 @@ class magnolia::params {
       case $bundle {
         'tomcat': {
           $magnolia_filename     = "magnolia-enterprise-${edition}${demo}-bundle-${magnolia_version}-tomcat-bundle.${bundle_format}"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-bundle/${magnolia_version}/$::{magnolia_filename}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-bundle/${magnolia_version}/${magnolia_filename}"
         }
         'webapp':{
           $magnolia_filename     = "magnolia-enterprise-${edition}${demo}-webapp-${magnolia_version}.war"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-webapp/${magnolia_version}/$::{magnolia_filename}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-webapp/${magnolia_version}/${magnolia_filename}"
         }
         default: {
           fail("Magnolia bundle must be either tomcat or webapp, you entered: ${bundle}")
@@ -63,11 +63,11 @@ class magnolia::params {
       case $bundle {
         'tomcat': {
           $magnolia_filename     = "magnolia-community-demo-bundle-${magnolia_version}-tomcat-bundle.${bundle_format}"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnolia_version}/$::{magnolia_filename}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnolia_version}/${magnolia_filename}"
         }
         'webapp':{
           $magnolia_filename     = "magnolia-community${demo}-webapp-${magnolia_version}.war"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community${demo}-webapp/${magnolia_version}/$::{magnolia_filename}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community${demo}-webapp/${magnolia_version}/${magnolia_filename}"
         }
         'empty':{
           $magnolia_filename     = "magnolia-empty-webapp-${magnolia_version}.war"
