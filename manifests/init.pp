@@ -1,48 +1,71 @@
 # Class: magnolia
 # ===========================
 #
-# Full description of class magnolia here.
+# This class will install either the Magnolia Community Edition or Enterprise Pro edition bundle
+# which includes the demo travel project and embedded Apache Tomcat using the Puppet::Archive
+# module to download the bundle zip file.  Puppet::Staging is currently included in case Archive
+# does not work.
 #
 # Parameters
 # ----------
 #
-# Document parameters here.
-#
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
-#
+# $edition is either magnolia 'community' or 'enterprise-pro'
+# 
 # Variables
 # ----------
 #
-# Here you should define a list of variables that this module would require.
-#
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# 
 #
 # Examples
 # --------
 #
 # @example
 #    class { 'magnolia':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#      
 #    }
 #
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Dave Stauffer <davetst@gmail.com>
 #
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
-class magnolia {
+class magnolia (
 
+
+	# Magnolia Install Parameters
+	$license_type          = $magnolia::params::license_type
+	$edition               = $magnolia::params::edition,
+	$magnolia_version      = $magnolia::params::version,
+	$user                  = $magnolia::params::user,
+	$group                 = $magnolia::params::group,
+
+	# Download Settings
+	$magnolia_download_url = $magnolia::params::magnolia_download_url,
+
+	# Persistence Settings
+
+	# Manage service
+	$service_manage        = $magnolia::params::service_manage,
+	$service_ensure        = $magnolia::params::service_ensure,
+	$service_enable        = $magnolia::params::service_enable,
+	$service_notify        = $magnolia::params::service_notify,
+	$service_subscribe     = $magnolia::params::service_subscribe,
+
+
+) inherits magnolia::params {
+
+	include java
+	include limits
+	include archive
+
+	anchor { 'magnolia::start': } ->
+	  class { '::magnolia::config': } ->
+	  class { '::magnolia::install': } ->
+	anchor { 'magnolia::end': }
 
 }
