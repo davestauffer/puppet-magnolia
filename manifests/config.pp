@@ -38,15 +38,6 @@ class magnolia::config inherits magnolia {
 
   case $::operatingsystem {
       'Ubuntu': {
-        include apt
-
-        class{'java':
-          repository            => 'webupd8team',
-          distribution          => 'oracle',
-          release               => 'java8',
-          accept_oracle_license => true,
-        }
-        
         package { 'unzip':
           ensure => installed,
         }

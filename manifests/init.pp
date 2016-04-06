@@ -59,6 +59,7 @@ class magnolia (
 
 ) inherits magnolia::params {
 
+	include java
 	include limits
 	include archive
 
