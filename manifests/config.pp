@@ -48,11 +48,29 @@ class magnolia::config inherits magnolia {
       }
     }
 
-  file { $install_dir:
+  file { $magnolia::install_dir:
     ensure => directory,
     owner  => $magnolia::user,
     group  => $magnolia::group,
     mode   => '0755',
   }
+
+  file { "${magnolia::install_dir}/wf/builds":
+    ensure  => directory,
+    require => File[$magnaolia::install_dir],
+    owner   => $magnolia::user,
+    group   => $magnolia::group,
+    mode    => '0755',
+  }
+
+  file { "${magnolia::install_dir}/wf/backups":
+    ensure  => directory,
+    require => File[$magnolia::install_dir],
+    owner   => $magnolia::user,
+    group   => $magnolia::group,
+    mode    => '0755',
+  }
+
+
 
 }

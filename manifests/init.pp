@@ -43,6 +43,7 @@ class magnolia (
   $magnolia_version      = $magnolia::params::version,
   $user                  = $magnolia::params::user,
   $group                 = $magnolia::params::group,
+  $install_dir           = $magnolia::params::install_dir,
 
   # Download Settings
   $magnolia_download_url = $magnolia::params::magnolia_download_url,
