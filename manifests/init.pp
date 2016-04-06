@@ -37,35 +37,35 @@
 class magnolia (
 
 
-	# Magnolia Install Parameters
-	$license_type          = $magnolia::params::license_type
-	$edition               = $magnolia::params::edition,
-	$magnolia_version      = $magnolia::params::version,
-	$user                  = $magnolia::params::user,
-	$group                 = $magnolia::params::group,
+  # Magnolia Install Parameters
+  $license_type          = $magnolia::params::license_type,
+  $edition               = $magnolia::params::edition,
+  $magnolia_version      = $magnolia::params::version,
+  $user                  = $magnolia::params::user,
+  $group                 = $magnolia::params::group,
 
-	# Download Settings
-	$magnolia_download_url = $magnolia::params::magnolia_download_url,
+  # Download Settings
+  $magnolia_download_url = $magnolia::params::magnolia_download_url,
 
-	# Persistence Settings
+  # Persistence Settings
 
-	# Manage service
-	$service_manage        = $magnolia::params::service_manage,
-	$service_ensure        = $magnolia::params::service_ensure,
-	$service_enable        = $magnolia::params::service_enable,
-	$service_notify        = $magnolia::params::service_notify,
-	$service_subscribe     = $magnolia::params::service_subscribe,
+  # Manage service
+  $service_manage        = $magnolia::params::service_manage,
+  $service_ensure        = $magnolia::params::service_ensure,
+  $service_enable        = $magnolia::params::service_enable,
+  $service_notify        = $magnolia::params::service_notify,
+  $service_subscribe     = $magnolia::params::service_subscribe,
 
 
 ) inherits magnolia::params {
 
-	include java
-	include limits
-	include archive
+  include java
+  include limits
+  include archive
 
-	anchor { 'magnolia::start': } ->
-	  class { '::magnolia::config': } ->
-	  class { '::magnolia::install': } ->
-	anchor { 'magnolia::end': }
+  anchor { 'magnolia::start': } ->
+    class { '::magnolia::config': } ->
+    class { '::magnolia::install': } ->
+  anchor { 'magnolia::end': }
 
 }
