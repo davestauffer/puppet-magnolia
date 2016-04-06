@@ -43,13 +43,10 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class magnolia::service { '':
-	enable      => true,
-	ensure      => running,
-	#hasrestart => true,
-	#hasstatus  => true,
-	#require    => Class["config"],
+  ensure  => running,
+  enable  => true,
 } inherits magnolia {
 
       
 
-    }
+}
