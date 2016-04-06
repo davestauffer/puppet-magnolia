@@ -42,13 +42,13 @@ class magnolia::config inherits magnolia {
           ensure => installed,
         }
 
-       }
+      }
       default: {
         fail("Unsupported operatingsystem: ${::operatingsystem}")
-       }
-    } 
+      }
+    }
 
-  file { $install_dir:
+  file { $::install_dir:
     ensure => directory,
     owner  => $magnolia::user,
     group  => $magnolia::group,
