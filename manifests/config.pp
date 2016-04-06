@@ -48,7 +48,7 @@ class magnolia::config inherits magnolia {
       }
     }
 
-  file { $::install_dir:
+  file { $install_dir:
     ensure => directory,
     owner  => $magnolia::user,
     group  => $magnolia::group,

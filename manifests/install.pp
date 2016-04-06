@@ -33,7 +33,7 @@
 #
 class magnolia::install inherits magnolia {
     
-      archive { $::magnolia_filename:
+      archive { $magnolia_filename:
         path         => "/tmp/${magnolia::magnolia_filename}",
         source       => $magnolia::magnolia_download_url,
         extract      => true,
