@@ -9,18 +9,18 @@
 # another \, i.e C:\\magnolia\\data\\repositories
 # or c:/magnolia/data/repositories
 #--------------------------------------------
-magnolia.home=${magnolia.app.rootdir}
+magnolia.home=<%= @magnolia_home %>
 # The directory to expose file system resources from
-magnolia.resources.dir=${magnolia.home}
-magnolia.cache.startdir=${magnolia.home}/cache
-magnolia.upload.tmpdir=${magnolia.home}/tmp
+magnolia.resources.dir=<%= @magnolia_resources_dir %>
+magnolia.cache.startdir=<%= @magnolia_cache_startdir %>/cache
+magnolia.upload.tmpdir=<%= @magnolia_upload_tmpdir %>/tmp
 magnolia.exchange.history=${magnolia.home}/history
 magnolia.repositories.config=WEB-INF/config/default/repositories.xml
-magnolia.repositories.home=${magnolia.home}/repositories
+magnolia.repositories.home=<%= @magnolia_repositories_home %>repositories
 magnolia.repositories.jackrabbit.config=WEB-INF/config/repo-conf/jackrabbit-bundle-derby-search.xml
 
 log4j.config=WEB-INF/config/default/log4j.xml
-magnolia.logs.dir=${magnolia.home}/logs
+magnolia.logs.dir=<%= @magnolia_logs_dir %>/logs
 
 # The directories in which the bootstrap files are searched
 magnolia.bootstrap.dir=WEB-INF/bootstrap/author WEB-INF/bootstrap/common
@@ -34,10 +34,10 @@ magnolia.bootstrap.authorInstance=true
 magnolia.bootstrap.samples=true
 
 # Activate UTF-8 support to pages
-magnolia.utf8.enabled=false
+magnolia.utf8.enabled=<%= @magnolia_utf8_enabled %>
 
 # Switch to false to enhance the performance of the javascript generation and similar
-magnolia.develop=false
+magnolia.develop=<%= @magnolia_develop %>
 
 # Change to point at your custom Vaadin widgetset and theme
 # Your widgetset should always inherit magnolia's default widgetset (info.magnolia.widgetset.MagnoliaWidgetSet)
@@ -55,8 +55,8 @@ magnolia.connection.jcr.userId = admin
 magnolia.connection.jcr.password = admin
 
 # Set it to true if bootstrapping/update should be performed automatically
-magnolia.update.auto=false
+magnolia.update.auto=<%= @magnolia_update_auto %>
 
 # Location of the file containing both the private and the public keys used to verify authenticity of activation requests
 # This file is generated if not present
-magnolia.author.key.location=${magnolia.home}/WEB-INF/config/default/magnolia-activation-keypair.properties
+magnolia.author.key.location=<%= @magnolia_author_key_location %>/WEB-INF/config/default/magnolia-activation-keypair.properties
