@@ -13,10 +13,6 @@
 # mgnolia_version = ex. 5.4.5
 # demo = -demo or undef (make sure to include the '-' before demo)
 # bundle = empty, webapp or tomcat
-# bundle_format = zip or tar.gz (only for bundled tomcat)
-# user = user magnolia install path is owned by
-# group = group magnolia install path is grouped by
-# install_dir = root directory where magnolia is to be installed
 # 
 #
 # Authors
@@ -32,15 +28,22 @@
 class magnolia::params {
 
   # Magnolia Install Parameters
-  $license_type        = 'enterprise'
-  $edition             = 'pro'
-  $magnolia_version    = '5.4.3'
-  $demo                = '-demo'
-  $bundle              = 'tomcat'
-  $bundle_format       = 'tar.gz'
-  $user                = 'root'
-  $group               = 'root'
-  $install_dir         = '/opt'
+  $license_type          = 'enterprise'
+  $edition               = 'pro'
+  $magnolia_version      = '5.4.3'
+  $demo                  = '-demo'
+  $bundle                = 'tomcat'
+  $magnolia_develop      = 'false'
+  $magnolia_update_auto  = 'false'
+
+  case $::operatingsystem {
+    'windows': {
+      $bundle_format = 'zip'
+    }
+    default: {
+      $bundle_format = 'tar.gz'
+    }
+  }
 
   # Magnolia Download URL
   case $license_type {

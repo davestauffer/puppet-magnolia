@@ -9,7 +9,10 @@
 # Parameters
 # ----------
 #
-# $edition is either magnolia 'community' or 'enterprise-pro'
+# edition is either magnolia 'community' or 'enterprise-pro'
+# install_dir = root directory where magnolia is to be installed
+# user = user magnolia install path is owned by
+# group = group magnolia install path is grouped by
 #
 # magnolia.properties
 # magnolia.home = Root of the webapp's deployment directory.  Optional, default is ${magnolia.app.rootdir}
@@ -55,24 +58,27 @@ class magnolia (
   $license_type          = $magnolia::params::license_type,
   $edition               = $magnolia::params::edition,
   $magnolia_version      = $magnolia::params::version,
-  $user                  = $magnolia::params::user,
-  $group                 = $magnolia::params::group,
-  $install_dir           = $magnolia::params::install_dir,
   $magnolia_download_url = $magnolia::params::magnolia_download_url,
+  $demo                  = $magnolia::params::demo,
+  $bundle                = $magnolia::params::bundle,
+  $user                  = 'root',
+  $group                 = 'root',
+  $install_dir           = '/opt',
 
   # Magnolia Properies
-  $magnolia.home                            = undef,
-  $magnolia.repositories.config             = undef,
-  $magnolia.repositories.home               = undef,
-  $magnolia.repositories.jackrabbit.config  = undef,
-  $magnolia.logs.dir                        = undef,
-  $magnolia.cache.startdir                  = undef,
-  $magnolia.upload.tmpdir                   = undef,
-  $magnolia.logs.dir                        = undef,
-  $magnolia.utf8.enabled                    = undef,
-  $magnolia.develop                         = undef,
-  $magnolia.update.auto                     = undef,
-  $magnolia.author.key.location             = undef,
+  $magnolia_home                            = '\${magnolia.app.rootdir}',
+  $magnolia_resources_dir                   = '\${magnolia.home}',
+  $magnolia_repositories_config             = 'WEB-INF/config/default/repositories.xml',
+  $magnolia_repositories_home               = '\${magnolia.home}/repositories',
+  $magnolia_repositories_jackrabbit_config  = 'WEB-INF/config/repo-conf/jackrabbit-bundle-derby-search.xml',
+  $magnolia_logs_dir                        = '\${magnolia.home}/logs',
+  $magnolia_cache_startdir                  = '\${magnolia.home}/cache',
+  $magnolia_upload_tmpdir                   = '\${magnolia.home}/tmp',
+  $magnolia_utf8_enabled                    = false,
+  $magnolia_develop                         = $magnolia::params::magnolia_develop,
+  $magnolia_update_auto                     = $magnolia::params::magnolia_update_auto,
+  $magnolia_author_key_location             = '\${magnolia.home}/WEB-INF/config/default/magnolia-activation-keypair.properties',
+  
 
   # Persistence Settings
 
