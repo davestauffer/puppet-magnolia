@@ -35,6 +35,7 @@ class magnolia::params {
   $bundle                = 'tomcat'
   $magnolia_develop      = 'false'
   $magnolia_update_auto  = 'false'
+  $magnolia_data_dir     = '/opt/cms-data'
 
   case $::operatingsystem {
     'windows': {

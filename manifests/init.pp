@@ -63,22 +63,8 @@ class magnolia (
   $bundle                = $magnolia::params::bundle,
   $user                  = 'root',
   $group                 = 'root',
-  $install_dir           = '/opt',
-
-  # Magnolia Properies
-  $magnolia_home                            = '\${magnolia.app.rootdir}',
-  $magnolia_resources_dir                   = '\${magnolia.home}',
-  $magnolia_repositories_config             = 'WEB-INF/config/default/repositories.xml',
-  $magnolia_repositories_home               = '\${magnolia.home}/repositories',
-  $magnolia_repositories_jackrabbit_config  = 'WEB-INF/config/repo-conf/jackrabbit-bundle-derby-search.xml',
-  $magnolia_logs_dir                        = '\${magnolia.home}/logs',
-  $magnolia_cache_startdir                  = '\${magnolia.home}/cache',
-  $magnolia_upload_tmpdir                   = '\${magnolia.home}/tmp',
-  $magnolia_utf8_enabled                    = false,
-  $magnolia_develop                         = $magnolia::params::magnolia_develop,
-  $magnolia_update_auto                     = $magnolia::params::magnolia_update_auto,
-  $magnolia_author_key_location             = '\${magnolia.home}/WEB-INF/config/default/magnolia-activation-keypair.properties',
-  
+  $install_dir           = '/opt/magnolia-cms',
+  $magnolia_data_dir     = $magnolia::params::magnolia_data_dir
 
   # Persistence Settings
 
