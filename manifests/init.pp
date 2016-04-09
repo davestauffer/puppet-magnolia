@@ -14,20 +14,6 @@
 # user = user magnolia install path is owned by
 # group = group magnolia install path is grouped by
 #
-# magnolia.properties
-# magnolia.home = Root of the webapp's deployment directory.  Optional, default is ${magnolia.app.rootdir}
-# magnolia.repositories.config = Location of repository config file.  Required, default is WEB-INF/config/default/repositories.xml
-# magnolia.repositories.home = Repository home directory.  Optional, default is ${magnolia.home}/repositories
-# magnolia.repositories.jackrabbit.config = Location of Jackrabbit file.  Optional, default is WEB-INF/config/repo-conf/jackrabbit-bundle-derby-search.xml
-# magnolia.logs.dir = Directory where logs are written.  Optional, default is ${magnolia.home}/logs
-# magnolia.cache.startdir = Directory used for cached pages.  Required, default is ${magnolia.home}/cache
-# magnolia.upload.tmpdir = Temporary directory for uploaded files.  Required, default is ${magnolia.home}/tmp
-# magnolia.logs.dir = Directory where logs are written.  Optional, default is ${magnolia.home}/logs
-# magnolia.utf8.enabled = Activate UTF-8 support for pages.  Optional, default is false
-# magnolia.develop = Disables the cache for resources.  To force on-the-fly Sass compiling.  Optional, default is false
-# magnolia.update.auto = Set to true if bootstrapping and update should be performed automatically after installation.  Optional, default is false
-# magnolia.author.key.location = Location of private and public keys used for activation.  Optional, default is ${magnolia.home}/WEB-INF/config/default/magnolia-activation-keypair.properties
-# 
 # Variables
 # ----------
 #
@@ -59,12 +45,15 @@ class magnolia (
   $edition               = $magnolia::params::edition,
   $magnolia_version      = $magnolia::params::version,
   $magnolia_download_url = $magnolia::params::magnolia_download_url,
+  $is_demo               = $magnolia::params::is_demo,
   $demo                  = $magnolia::params::demo,
   $bundle                = $magnolia::params::bundle,
+  $cms_dir               = $magnolia::params::cms_dir,
+  $has_data_dir          = $magnolia::params::has_data_dir,
+  $data_dir              = $magnolia::params::data_dir,
   $user                  = 'root',
   $group                 = 'root',
-  $install_dir           = '/opt/magnolia-cms',
-  $magnolia_data_dir     = $magnolia::params::magnolia_data_dir
+  
 
   # Persistence Settings
 

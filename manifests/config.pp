@@ -36,41 +36,37 @@
 #
 class magnolia::config inherits magnolia {
 
-  case $::operatingsystem {
-      'Ubuntu': {
-        package { 'unzip':
-          ensure => installed,
-        }
-
-      }
-      default: {
-        fail("Unsupported operatingsystem: ${::operatingsystem}")
-      }
-    }
-
-  file { $magnolia::install_dir:
+  file { $magnolia::cms_dir:
     ensure => directory,
     owner  => $magnolia::user,
     group  => $magnolia::group,
     mode   => '0755',
   }
 
-  file { "${magnolia::install_dir}/wf/builds":
+  if $magnolia::has_data_dir == true {
+    file { $magnolia::data_dir:
+      ensure => directory,
+      owner  => $magnolia::user,
+      group  => $magnolia::group,
+      mode   => '0755',
+    }
+
+  file { "${magnolia::data_dir}/builds":
     ensure  => directory,
-    require => File[$magnaolia::install_dir],
+    require => File[$magnaolia::data_dir],
     owner   => $magnolia::user,
     group   => $magnolia::group,
     mode    => '0755',
   }
 
-  file { "${magnolia::install_dir}/wf/backups":
+  file { "${magnolia::data_dir}/backups":
     ensure  => directory,
-    require => File[$magnolia::install_dir],
+    require => File[$magnolia::data_dir],
     owner   => $magnolia::user,
     group   => $magnolia::group,
     mode    => '0755',
   }
-
+  }
 
 
 }

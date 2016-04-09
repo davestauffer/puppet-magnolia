@@ -6,13 +6,15 @@
 # Parameters
 # ----------
 #
-# Document parameters here.
-#
 # license_type = community or enterprise  
 # edition = community, standard or pro
 # mgnolia_version = ex. 5.4.5
-# demo = -demo or undef (make sure to include the '-' before demo)
+# is_demo = include the travel demo, true or false
 # bundle = empty, webapp or tomcat
+# database = use database for persistence.  default is derby, also supports postgres
+# cms_dir = name of the directory mangolia should be installed to (rather than /magnolia-enterprise-5.4.3)
+# has_data_dir = false by default.  Set to true if you want to configure repository outside of the war file
+# data_dir = directory location of repository and other files if has_data_dir is true, unused if false
 # 
 #
 # Authors
@@ -31,19 +33,29 @@ class magnolia::params {
   $license_type          = 'enterprise'
   $edition               = 'pro'
   $magnolia_version      = '5.4.3'
-  $demo                  = '-demo'
+  $is_demo               = true
   $bundle                = 'tomcat'
-  $magnolia_develop      = 'false'
-  $magnolia_update_auto  = 'false'
-  $magnolia_data_dir     = '/opt/cms-data'
+  $database              = 'postgres'
+  $cms_dir               = '/opt/magnolia-cms'
+  $has_data_dir          = true
+  $data_dir              = '/opt/magnolia-data'
+  $service_manage        = true
+  $service_ensure        = running
+  $service_enable        = true
+  $service_notify        = undef
+  $service_subscribe     = undef
 
-  case $::operatingsystem {
-    'windows': {
-      $bundle_format = 'zip'
-    }
-    default: {
-      $bundle_format = 'tar.gz'
-    }
+  # set download file compression format
+  if $::operatingsystem == 'windows' {
+    $bundle_format = 'zip'
+  }
+  else {
+    $bundle_format = 'tar.gz'
+  }
+
+  # set demo in file name
+  if $is_demo == true {
+    $demo = '-demo'
   }
 
   # Magnolia Download URL
@@ -87,14 +99,5 @@ class magnolia::params {
       fail ("license_type must be either community or enterprise you entered: ${license_type}")
     }
   }
-
-  # Persistence Settings
-
-  # Manage Magnolia Service
-  #$service_manage      = true,
-  #$service_ensure      = running,
-  #$service_enable      = true,
-  #$service_notify      = undef,
-  #$service_subscribe   = undef
 
 }
