@@ -58,12 +58,11 @@ class magnolia (
   # Persistence Settings
 
   # Manage service
-  $service_manage        = $magnolia::params::service_manage,
-  $service_ensure        = $magnolia::params::service_ensure,
-  $service_enable        = $magnolia::params::service_enable,
-  $service_notify        = $magnolia::params::service_notify,
-  $service_subscribe     = $magnolia::params::service_subscribe,
-
+  $service_manage        = true,
+  $service_ensure        = running,
+  $service_enable        = true,
+  $service_notify        = undef,
+  $service_subscribe     = undef,
 
 ) inherits magnolia::params {
 
@@ -74,6 +73,7 @@ class magnolia (
   anchor { 'magnolia::start': } ->
     class { '::magnolia::config': } ->
     class { '::magnolia::install': } ->
+    class { '::magnolia::service': } ->
   anchor { 'magnolia::end': }
 
 }

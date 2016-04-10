@@ -11,7 +11,7 @@
 # mgnolia_version = ex. 5.4.5
 # is_demo = include the travel demo, true or false
 # bundle = empty, webapp or tomcat
-# database = use database for persistence.  default is derby, also supports postgres
+# database = use database for persistence.  default is derby, also supports postgresql
 # cms_dir = name of the directory mangolia should be installed to (rather than /magnolia-enterprise-5.4.3)
 # has_data_dir = false by default.  Set to true if you want to configure repository outside of the war file
 # data_dir = directory location of repository and other files if has_data_dir is true, unused if false
@@ -35,15 +35,13 @@ class magnolia::params {
   $magnolia_version      = '5.4.3'
   $is_demo               = true
   $bundle                = 'tomcat'
-  $database              = 'postgres'
+  $database              = 'postgresql'
   $cms_dir               = '/opt/magnolia-cms'
   $has_data_dir          = true
   $data_dir              = '/opt/magnolia-data'
-  $service_manage        = true
-  $service_ensure        = running
-  $service_enable        = true
-  $service_notify        = undef
-  $service_subscribe     = undef
+
+  $service_file_location = '/etc/init.d/magnolia'
+  $service_file_template = 'magnolia/magnolia.service.erb'
 
   # set download file compression format
   if $::operatingsystem == 'windows' {
