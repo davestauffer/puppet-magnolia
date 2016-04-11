@@ -75,15 +75,24 @@ class magnolia::config inherits magnolia {
     }
   }
 
-  postgresql::server::db { 'magnolia_author':
-    user     => 'postgresql',
-    password => postgresql_password('postgresql', 'W3wdqKyV'),
+  case $magnolia::database {
+    'postgresql': {
+      postgresql::server::db { 'magnolia_author':
+        user     => 'postgresql',
+        password => postgresql_password('postgresql', 'W3wdqKyV'),
+      }
+
+      postgresql::server::db { 'magnolia_public':
+        user     => 'postgresql',
+        password => postgresql_password('postgresql', 'W3wdqKyV'),
+      }
+    }
+    default: {
+      fail("Magnolia database must be either postgresql or derby, you entered: ${magnolia::database}")
+    }
   }
 
-  postgresql::server::db { 'magnolia_public':
-    user     => 'postgresql',
-    password => postgresql_password('postgresql', 'W3wdqKyV'),
-  }
+  
 
 
 }
