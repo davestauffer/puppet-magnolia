@@ -9,10 +9,19 @@
 # Parameters
 # ----------
 #
-# edition is either magnolia 'community' or 'enterprise-pro'
-# install_dir = root directory where magnolia is to be installed
+# license_type = community or enterprise  
+# edition = community, standard or pro
+# mgnolia_version = ex. 5.4.5
+# is_demo = include the travel demo, true or false
+# bundle = empty, webapp or tomcat
+# database = use database for persistence.  default is derby, also supports postgresql
+# cms_dir = name of the directory mangolia should be installed to (rather than /magnolia-enterprise-5.4.3)
+# has_data_dir = false by default.  Set to true if you want to configure repository outside of the war file
+# data_dir = directory location of repository and other files if has_data_dir is true, unused if false
 # user = user magnolia install path is owned by
 # group = group magnolia install path is grouped by
+# nexus_user = username for logging into magnolia nexus repository (configure on puppet master so we don't see this in code)
+# nexus_password = password for logging into magnolia nexus repository (configure on puppet master so we don't see this in code)
 #
 # Variables
 # ----------
@@ -24,6 +33,8 @@
 #
 # @example
 #    class { 'magnolia':
+#      nexus_user     => 'yourname'
+#      nexus_password => 'yourpassword'
 #      
 #    }
 #
@@ -41,26 +52,26 @@ class magnolia (
 
 
   # Magnolia Install Parameters
-  $license_type          = $magnolia::params::license_type,
-  $edition               = $magnolia::params::edition,
-  $magnolia_version      = $magnolia::params::version,
-  $magnolia_download_url = $magnolia::params::magnolia_download_url,
-  $is_demo               = $magnolia::params::is_demo,
-  $demo                  = $magnolia::params::demo,
-  $bundle                = $magnolia::params::bundle,
-  $cms_dir               = $magnolia::params::cms_dir,
-  $has_data_dir          = $magnolia::params::has_data_dir,
-  $data_dir              = $magnolia::params::data_dir,
+  $license_type          = 'enterprise',
+  $edition               = 'pro',
+  $magnolia_version      = '5.4.3',
+  $is_demo               = true,
+  $bundle                = 'tomcat',
+  $database              = 'postgresql',
+  $cms_dir               = '/opt/magnolia-cms',
+  $has_data_dir          = true,
+  $data_dir              = '/opt/magnolia-data',
   $user                  = 'root',
   $group                 = 'root',
+  $nexus_user            = undef,
+  $nexus_password        = undef,
 
   # Tomcat Settings
-  $tomcat_bin            = "$magnolia::params::cms_dir/apache-tomcat-7.0.47/bin",
-
-  # Persistence Settings
-  $database              = $magnolia::params::database,
-
+  $tomcat_bin            = "$magnolia::params::cms_dir/apache-tomcat-7.0.64/bin",
+  
   # Manage service
+  $service_file_location = '/etc/init.d/magnolia'
+  $service_file_template = 'magnolia/magnolia.service.erb'
   $service_manage        = true,
   $service_ensure        = running,
   $service_enable        = true,

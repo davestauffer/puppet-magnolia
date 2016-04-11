@@ -37,10 +37,10 @@
 class magnolia::config inherits magnolia {
 
   limits::fragment {
-    "*/soft/nofile":
-    value => "1024";
-    "*/hard/nofile":
-    value => "8192";
+    "root/soft/nofile":
+    value => "10000";
+    "root/hard/nofile":
+    value => "50000";
   }
 
   file { $magnolia::cms_dir:

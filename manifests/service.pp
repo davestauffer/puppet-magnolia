@@ -28,8 +28,8 @@
 #
 class magnolia::service (
 
-  $service_file_location  = $magnolia::params::service_file_location,
-  $service_file_template  = $magnolia::params::service_file_template,
+  $service_file_location  = $magnolia::service_file_location,
+  $service_file_template  = $magnolia::service_file_template,
 
 ) inherits magnolia {
 

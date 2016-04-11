@@ -43,8 +43,8 @@ class magnolia::install inherits magnolia {
         cleanup         => true,
         user            => $magnolia::user,
         group           => $magnolia::group,
-        username        => 'your user name here',
-        password        => 'your password here',
+        username        => $magnolia::nexus_user,
+        password        => $magnolia::nexus_password,
         require         => File[$magnolia::cms_dir],
       }
 }
