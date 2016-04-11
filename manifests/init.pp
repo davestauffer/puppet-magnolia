@@ -53,7 +53,9 @@ class magnolia (
   $data_dir              = $magnolia::params::data_dir,
   $user                  = 'root',
   $group                 = 'root',
-  
+
+  # Tomcat Settings
+  $tomcat_bin            = "$magnolia::params::cms_dir/apache-tomcat-7.0.47/bin",
 
   # Persistence Settings
 
