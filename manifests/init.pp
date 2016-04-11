@@ -58,6 +58,7 @@ class magnolia (
   $tomcat_bin            = "$magnolia::params::cms_dir/apache-tomcat-7.0.47/bin",
 
   # Persistence Settings
+  $database              = $magnolia::params::database,
 
   # Manage service
   $service_manage        = true,
@@ -67,6 +68,11 @@ class magnolia (
   $service_subscribe     = undef,
 
 ) inherits magnolia::params {
+
+  # Validate parameters
+  validate_re($license_type, ['^enterprise','^community'], 'The Magnolia $license_type parameter must be "enterprise" or "community".')
+  validate_re($edition, ['^community','^standard','^pro'], 'The Magnolia $edition parameter must be "community", "standard" or "pro".')
+  validate_re($database, ['^derby','^postgresql'], 'The Magnolia $database parameter must be "derby" or "postgresql".')
 
   include java
   include limits
