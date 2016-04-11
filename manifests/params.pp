@@ -34,49 +34,49 @@ class magnolia::params {
   }
 
   # set demo in file name
-  if $is_demo == true {
+  if $magnolia::is_demo == true {
     $demo = '-demo'
   }
 
   # Magnolia Download URL
-  case $license_type {
+  case $magnolia::license_type {
     'enterprise': {
-      case $bundle {
+      case $magnolia::bundle {
         'tomcat': {
-          $magnolia_filename     = "magnolia-enterprise-${edition}${demo}-bundle-${magnolia_version}-tomcat-bundle.${bundle_format}"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-bundle/${magnolia_version}/${magnolia_filename}"
+          $magnolia_filename     = "magnolia-enterprise-${magnolia::edition}${demo}-bundle-${magnolia::magnolia_version}-tomcat-bundle.${bundle_format}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${magnolia::edition}${demo}-bundle/${magnolia::magnolia_version}/${magnolia_filename}"
         }
         'webapp':{
-          $magnolia_filename     = "magnolia-enterprise-${edition}${demo}-webapp-${magnolia_version}.war"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${edition}${demo}-webapp/${magnolia_version}/${magnolia_filename}"
+          $magnolia_filename     = "magnolia-enterprise-${magnolia::edition}${demo}-webapp-${magnolia::magnolia_version}.war"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.enterprise.releases/info/magnolia/eebundle/magnolia-enterprise-${magnolia::edition}${demo}-webapp/${magnolia::magnolia_version}/${magnolia_filename}"
         }
         default: {
-          fail("Magnolia bundle must be either tomcat or webapp, you entered: ${bundle}")
+          fail("Magnolia bundle must be either tomcat or webapp, you entered: ${magnolia::bundle}")
         }
       }
     }
     'community':{
-      case $bundle {
+      case $magnolia::bundle {
         'tomcat': {
-          $magnolia_filename     = "magnolia-community-demo-bundle-${magnolia_version}-tomcat-bundle.${bundle_format}"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnolia_version}/${magnolia_filename}"
+          $magnolia_filename     = "magnolia-community-demo-bundle-${magnolia::magnolia_version}-tomcat-bundle.${bundle_format}"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnolia::magnolia_version}/${magnolia_filename}"
         }
         'webapp':{
-          $magnolia_filename     = "magnolia-community${demo}-webapp-${magnolia_version}.war"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community${demo}-webapp/${magnolia_version}/${magnolia_filename}"
+          $magnolia_filename     = "magnolia-community${demo}-webapp-${magnolia::magnolia_version}.war"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community${demo}-webapp/${magnolia::magnolia_version}/${magnolia_filename}"
         }
         'empty':{
-          $magnolia_filename     = "magnolia-empty-webapp-${magnolia_version}.war"
-          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/magnolia-empty-webapp/${magnolia_version}/magnolia-empty-webapp-${magnolia_version}.war"
+          $magnolia_filename     = "magnolia-empty-webapp-${magnolia::magnolia_version}.war"
+          $magnolia_download_url = "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/magnolia-empty-webapp/${magnolia::magnolia_version}/magnolia-empty-webapp-${magnolia::magnolia_version}.war"
         }
         default: {
-          fail("Magnolia bundle must be either tomcat, webapp or empty, you entered: ${bundle}")
+          fail("Magnolia bundle must be either tomcat, webapp or empty, you entered: ${magnolia::bundle}")
         }
       }
       
     }
     default: {
-      fail ("license_type must be either community or enterprise you entered: ${license_type}")
+      fail ("license_type must be either community or enterprise you entered: ${magnolia::license_type}")
     }
   }
 

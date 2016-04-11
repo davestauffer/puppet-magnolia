@@ -67,11 +67,11 @@ class magnolia (
   $nexus_password        = undef,
 
   # Tomcat Settings
-  $tomcat_bin            = "$magnolia::params::cms_dir/apache-tomcat-7.0.64/bin",
+  $tomcat_bin            = "$cms_dir/apache-tomcat-7.0.64/bin",
   
   # Manage service
-  $service_file_location = '/etc/init.d/magnolia'
-  $service_file_template = 'magnolia/magnolia.service.erb'
+  $service_file_location = '/etc/init.d/magnolia',
+  $service_file_template = 'magnolia/magnolia.service.erb',
   $service_manage        = true,
   $service_ensure        = running,
   $service_enable        = true,

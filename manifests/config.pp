@@ -58,21 +58,31 @@ class magnolia::config inherits magnolia {
       mode   => '0755',
     }
 
-  file { "${magnolia::data_dir}/builds":
-    ensure  => directory,
-    require => File[$magnaolia::data_dir],
-    owner   => $magnolia::user,
-    group   => $magnolia::group,
-    mode    => '0755',
+    file { "${magnolia::data_dir}/builds":
+      ensure  => directory,
+      require => File[$magnaolia::data_dir],
+      owner   => $magnolia::user,
+      group   => $magnolia::group,
+      mode    => '0755',
+    }
+
+    file { "${magnolia::data_dir}/backups":
+      ensure  => directory,
+      require => File[$magnolia::data_dir],
+      owner   => $magnolia::user,
+      group   => $magnolia::group,
+      mode    => '0755',
+    }
   }
 
-  file { "${magnolia::data_dir}/backups":
-    ensure  => directory,
-    require => File[$magnolia::data_dir],
-    owner   => $magnolia::user,
-    group   => $magnolia::group,
-    mode    => '0755',
+  postgresql::server::db { 'magnolia_author':
+    user     => 'postgresql',
+    password => postgresql_password('postgresql', 'W3wdqKyV'),
   }
+
+  postgresql::server::db { 'magnolia_public':
+    user     => 'postgresql',
+    password => postgresql_password('postgresql', 'W3wdqKyV'),
   }
 
 
