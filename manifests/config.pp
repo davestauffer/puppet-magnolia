@@ -45,54 +45,43 @@ class magnolia::config inherits magnolia {
 
   file { $magnolia::cms_dir:
     ensure => directory,
-    owner  => $magnolia::user,
-    group  => $magnolia::group,
+    owner  => $magnolia::magnolia_user,
+    group  => $magnolia::magnolia_group,
     mode   => '0755',
   }
 
   if $magnolia::has_data_dir == true {
     file { $magnolia::data_dir:
       ensure => directory,
-      owner  => $magnolia::user,
-      group  => $magnolia::group,
+      owner  => $magnolia::magnolia_user,
+      group  => $magnolia::magnolia_group,
       mode   => '0755',
     }
 
     file { "${magnolia::data_dir}/builds":
       ensure  => directory,
       require => File[$magnaolia::data_dir],
-      owner   => $magnolia::user,
-      group   => $magnolia::group,
+      owner   => $magnolia::deploy_user,
+      group   => $magnolia::deploy_group,
       mode    => '0755',
     }
 
     file { "${magnolia::data_dir}/backups":
       ensure  => directory,
       require => File[$magnolia::data_dir],
-      owner   => $magnolia::user,
-      group   => $magnolia::group,
+      owner   => $magnolia::magnolia_user,
+      group   => $magnolia::magnolia_group,
       mode    => '0755',
     }
   }
 
   case $magnolia::database {
     'postgresql': {
-      postgresql::server::db { 'magnolia_author':
-        user     => 'postgresql',
-        password => postgresql_password('postgresql', 'W3wdqKyV'),
-      }
-
-      postgresql::server::db { 'magnolia_public':
-        user     => 'postgresql',
-        password => postgresql_password('postgresql', 'W3wdqKyV'),
-      }
+      postgresql::server::database { 'magnolia_author': }
+      postgresql::server::database { 'magnolia_public': }
     }
     default: {
       fail("Magnolia database must be either postgresql or derby, you entered: ${magnolia::database}")
     }
   }
-
-  
-
-
 }

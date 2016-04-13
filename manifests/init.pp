@@ -61,13 +61,15 @@ class magnolia (
   $cms_dir               = '/opt/magnolia-cms',
   $has_data_dir          = true,
   $data_dir              = '/opt/magnolia-data',
-  $user                  = 'root',
-  $group                 = 'root',
+  $magnolia_user         = 'root',
+  $magnolia_group        = 'root',
   $nexus_user            = undef,
   $nexus_password        = undef,
+  $deploy_user           = 'wf-admin',
+  $deploy_group          = 'wf-admin',
 
   # Tomcat Settings
-  $tomcat_bin            = "$cms_dir/apache-tomcat-7.0.64/bin",
+  $tomcat_bin            = "/apache-tomcat-7.0.64/bin",
   
   # Manage service
   $service_file_location = '/etc/init.d/magnolia',
@@ -135,6 +137,9 @@ class magnolia (
       fail ("license_type must be either community or enterprise you entered: ${license_type}")
     }
   }
+
+  # Set Tomcat bin directory for service
+  $tomcat_service_dir            = "${cms_dir}${tomcat_bin}"
 
   anchor { 'magnolia::start': } ->
     class { '::magnolia::config': } ->

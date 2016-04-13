@@ -12,16 +12,16 @@
 
 case "$1" in
  start)
-   <%= @tomcat_bin %>/magnolia_control.sh start
+   <%= @tomcat_service_dir %>/magnolia_control.sh start
    ;;
  stop)
-   <%= @tomcat_bin %>/magnolia_control.sh stop
+   <%= @tomcat_service_dir %>/magnolia_control.sh stop
    sleep 10
    ;;
  restart)
-   <%= @tomcat_bin %>/magnolia_control.sh stop
+   <%= @tomcat_service_dir %>/magnolia_control.sh stop
    sleep 20
-   <%= @tomcat_bin %>/magnolia_control.sh start
+   <%= @tomcat_service_dir %>/magnolia_control.sh start
    ;;
  *)
    echo "Usage: magnolia {start|stop|restart}" >&2
