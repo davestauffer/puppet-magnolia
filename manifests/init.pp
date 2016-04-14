@@ -83,6 +83,10 @@ class magnolia (
 
   # Tomcat Settings
   $tomcat_bin            = "/apache-tomcat-7.0.64/bin",
+
+  # Database Settings
+  $author_db_name        = undef,
+  $public_db_name        = undef,
   
   # Manage service
   $service_file_location = '/etc/init.d/magnolia',
