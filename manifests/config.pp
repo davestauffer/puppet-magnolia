@@ -36,23 +36,52 @@
 #
 class magnolia::config inherits magnolia {
 
-  case $::operatingsystem {
-      'Ubuntu': {
-        package { 'unzip':
-          ensure => installed,
-        }
+  limits::fragment {
+    "root/soft/nofile":
+    value => "10000";
+    "root/hard/nofile":
+    value => "50000";
+  }
 
-      }
-      default: {
-        fail("Unsupported operatingsystem: ${::operatingsystem}")
-      }
-    }
-
-  file { $::install_dir:
+  file { $magnolia::cms_dir:
     ensure => directory,
-    owner  => $magnolia::user,
-    group  => $magnolia::group,
+    owner  => $magnolia::magnolia_user,
+    group  => $magnolia::magnolia_group,
     mode   => '0755',
   }
 
+  if $magnolia::has_data_dir == true {
+    file { $magnolia::data_dir:
+      ensure => directory,
+      owner  => $magnolia::magnolia_user,
+      group  => $magnolia::magnolia_group,
+      mode   => '0755',
+    }
+
+    file { "${magnolia::data_dir}/builds":
+      ensure  => directory,
+      require => File[$magnaolia::data_dir],
+      owner   => $magnolia::deploy_user,
+      group   => $magnolia::deploy_group,
+      mode    => '0755',
+    }
+
+    file { "${magnolia::data_dir}/backups":
+      ensure  => directory,
+      require => File[$magnolia::data_dir],
+      owner   => $magnolia::magnolia_user,
+      group   => $magnolia::magnolia_group,
+      mode    => '0755',
+    }
+  }
+
+  case $magnolia::database {
+    'postgresql': {
+      postgresql::server::database { 'magnolia_author': }
+      postgresql::server::database { 'magnolia_public': }
+    }
+    default: {
+      fail("Magnolia database must be either postgresql or derby, you entered: ${magnolia::database}")
+    }
+  }
 }
