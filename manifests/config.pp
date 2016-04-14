@@ -77,8 +77,8 @@ class magnolia::config inherits magnolia {
 
   case $magnolia::database {
     'postgresql': {
-      postgresql::server::database { 'magnolia_author': }
-      postgresql::server::database { 'magnolia_public': }
+      postgresql::server::database { $magnolia::magnolia_author: }
+      postgresql::server::database { $magnolia::magnolia_public: }
     }
     default: {
       fail("Magnolia database must be either postgresql or derby, you entered: ${magnolia::database}")
