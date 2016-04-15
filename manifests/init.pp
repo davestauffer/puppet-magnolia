@@ -25,6 +25,11 @@
 # deploy_user: optional, user you deploy application updates with (such as a jenkins user), related to has_data_dir
 # deploy_group: optional, group you deploy application updates with (such as a jenkins group), related to has_data_dir
 # tomcat_bin: optional, bin directory location where the magnolia_control.sh is located
+# tomcat_timezone: optional, sets a java timezone in setenv.sh  ex. 'America/New_York'
+# tomcat_max_heap: optional, sets max heap -Xmx in setenv.sh ex. '1536M'
+# tomcat_min_heap: optional, sets min heap -Xms in setenv.sh ex. '1024M'
+# tomcat_max_perm: optional, sets max perm -XX:MaxPermSize in setenv.sh ex. '256m',
+# tomcat_context_env: optional, sets a parameter in the tomcat context.xml file that can be used for magnolia configuration by environment.  ex. 'production'
 # service_manage: optional, set to false by default.  if set to true, you should configure the service file location and template
 # service_file_location: optional, location for service script, default set for ubuntu to /etc/init.d/magnolia
 # service_file_template: optional, puppet template location, you can customize this service file.
@@ -83,6 +88,12 @@ class magnolia (
 
   # Tomcat Settings
   $tomcat_bin            = '/apache-tomcat-7.0.64/bin',
+  $tomcat_conf           = '/apache-tomcat-7.0.64/conf',
+  $tomcat_timezone       = 'America/New_York',
+  $tomcat_max_heap       = '1536M',
+  $tomcat_min_heap       = '1024M',
+  $tomcat_max_perm       = '256m',
+  $tomcat_context_env    = 'production',
 
   # Database Settings
   $author_db_name        = undef,

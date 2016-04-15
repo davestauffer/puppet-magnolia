@@ -47,4 +47,16 @@ class magnolia::install inherits magnolia {
         password        => $magnolia::nexus_password,
         require         => File[$magnolia::cms_dir],
       }
+
+      file { "${magnolia::cms_dir}/${magnolia::tomcat_bin}/setenv.sh":
+          ensure  => file,
+          content => template('magnolia/setenv.sh.erb'),
+          require => Archive[$magnolia::magnolia_filename],
+      }
+
+      file { "${magnolia::cms_dir}/${magnolia::tomcat_conf}/context.xml":
+          ensure  => file,
+          content => template('magnolia/context.xml.erb'),
+          require => Archive[$magnolia::magnolia_filename],
+      }
 }
