@@ -18,7 +18,7 @@
 # bundle: optional, what type of bundle do you want to download empty, webapp or tomcat (default)
 # database: optional, use database for persistence.  default is derby, also supports postgresql
 # cms_dir: optional, name of the directory mangolia should be installed to (rather than /magnolia-enterprise-5.4.3)
-# has_data_dir: magnolia, false by default.  Set to true if you want to configure the magnolia repository outside of the war file
+# has_data_dir: optional, false by default.  Set to true if you want to configure the magnolia repository outside of the war file
 # data_dir: optional, directory location of repository and other files if has_data_dir is true, unused if false
 # magnolia_user: optional, user magnolia install path is owned by
 # magnolia_group: optional, group magnolia install path is grouped by
