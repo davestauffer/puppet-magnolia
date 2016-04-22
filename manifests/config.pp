@@ -57,7 +57,7 @@ class magnolia::config inherits magnolia {
         require => File[$magnaolia::data_dir],
         owner   => $magnolia::magnolia_user,
         group   => $magnolia::magnolia_group,
-        mode    => '0755',
+        mode    => '0775',
       }
     } else {
       file { "${magnolia::data_dir}/builds":
@@ -68,7 +68,7 @@ class magnolia::config inherits magnolia {
         ],
         owner   => $magnolia::deploy_user,
         group   => $magnolia::deploy_group,
-        mode    => '0755',
+        mode    => '0775',
       }
       user { $magnolia::deploy_user:
         ensure  => present,
