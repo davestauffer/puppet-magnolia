@@ -43,14 +43,6 @@ class magnolia::config inherits magnolia {
       mode   => '0755',
     }
 
-    file { "${magnolia::data_dir}/builds":
-      ensure  => directory,
-      require => File[$magnaolia::data_dir],
-      owner   => $magnolia::deploy_user,
-      group   => $magnolia::deploy_group,
-      mode    => '0755',
-    }
-
     file { "${magnolia::data_dir}/backups":
       ensure  => directory,
       require => File[$magnolia::data_dir],
@@ -58,6 +50,35 @@ class magnolia::config inherits magnolia {
       group   => $magnolia::magnolia_group,
       mode    => '0755',
     }
+
+    if $magnolia::deploy_user == undef {
+      file { "${magnolia::data_dir}/builds":
+        ensure  => directory,
+        require => File[$magnaolia::data_dir],
+        owner   => $magnolia::magnolia_user,
+        group   => $magnolia::magnolia_group,
+        mode    => '0755',
+      }
+    } else {
+      file { "${magnolia::data_dir}/builds":
+        ensure  => directory,
+        require => [
+          File[$magnolia::data_dir],
+          User[$magnolia::deploy_user],
+        ],
+        owner   => $magnolia::deploy_user,
+        group   => $magnolia::deploy_group,
+        mode    => '0755',
+      }
+      user { $magnolia::deploy_user:
+        ensure  => present,
+        comment => 'magnolia deploy user',
+        home    => "/home/${magnolia::deploy_user}",
+        shell   => '/bin/bash',
+      }
+    }
+
+    
   }
 
   case $magnolia::database {
