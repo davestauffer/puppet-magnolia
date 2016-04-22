@@ -1,60 +1,74 @@
 # Class: magnolia
 # ===========================
 #
-# This class will install either the Magnolia Community Edition or Enterprise Pro edition bundle
-# which includes the demo travel project and embedded Apache Tomcat using the Puppet::Archive
-# module to download the bundle zip file.  Puppet::Staging is currently included in case Archive
-# does not work.
+# This class will install either the Magnolia Community Edition or Enterprise
+# Pro edition bundle which includes the demo travel project and embedded Apache
+# Tomcat using the Puppet::Archive module to download the bundle zip file.
+# Puppet::Staging is currently included in case Archive does not work.
 #
 # Parameters
 # ----------
 #
-# nexus_user: required, username for logging into magnolia nexus repository (configure on puppet master so we don't see this in code)
-# nexus_password: required, password for logging into magnolia nexus repository (configure on puppet master so we don't see this in code)
-# license_type: optional, set to community or enterprise (default)
-# edition: optional, set to community, standard or pro (default)
-# magnolia_version: optional set to a valid version availble in nexus ex. 5.4.3 (default)
-# is_demo: optional, includes the travel demo, true (default) or false
-# bundle: optional, what type of bundle do you want to download empty, webapp or tomcat (default)
-# database: optional, use database for persistence.  default is derby, also supports postgresql
-# cms_dir: optional, name of the directory mangolia should be installed to (rather than /magnolia-enterprise-5.4.3)
-# has_data_dir: optional, false by default.  Set to true if you want to configure the magnolia repository outside of the war file
-# data_dir: optional, directory location of repository and other files if has_data_dir is true, unused if false
-# magnolia_user: optional, user magnolia install path is owned by
-# magnolia_group: optional, group magnolia install path is grouped by
-# deploy_user: optional, user you deploy application updates with (such as a jenkins user), related to has_data_dir
-# deploy_group: optional, group you deploy application updates with (such as a jenkins group), related to has_data_dir
-# tomcat_bin: optional, bin directory location where the magnolia_control.sh is located
-# tomcat_timezone: optional, sets a java timezone in setenv.sh  ex. 'America/New_York'
-# tomcat_max_heap: optional, sets max heap -Xmx in setenv.sh ex. '1536M'
-# tomcat_min_heap: optional, sets min heap -Xms in setenv.sh ex. '1024M'
-# tomcat_max_perm: optional, sets max perm -XX:MaxPermSize in setenv.sh ex. '256m',
-# tomcat_context_env: optional, sets a parameter in the tomcat context.xml file that can be used for magnolia configuration by environment.  ex. 'production'
-# service_manage: optional, set to false by default.  if set to true, you should configure the service file location and template
-# service_file_location: optional, location for service script, default set for ubuntu to /etc/init.d/magnolia
-# service_file_template: optional, puppet template location, you can customize this service file.
-# 
+# nexus_user: required, username for logging into magnolia nexus repository
+#   (configure on puppet master so we don't see this in code).
+# nexus_password: required, password for logging into magnolia nexus repository
+#   (configure on puppet master so we don't see this in code).
+# license_type: optional, set to community or enterprise (default).
+# edition: optional, set to community, standard or pro (default).
+# magnolia_version: optional set to a valid version availble in nexus ex. 5.4.3.
+# is_demo: optional, includes the travel demo, true (default) or false.
+# bundle: optional, what type of bundle do you want to download empty, webapp or
+#   tomcat (default).
+# database: optional, database for persistence. Derby (default) or postgresql.
+# cms_dir: optional, name of the directory mangolia should be installed to 
+#   (rather than /magnolia-enterprise-5.4.3).
+# has_data_dir: optional, false by default.  Set to true if you want to
+#   configure the magnolia repository outside of the war file.
+# data_dir: optional, directory location of repository and other files if
+#   has_data_dir is true, unused if false,
+# magnolia_user: optional, user magnolia install path is owned by.
+# magnolia_group: optional, group magnolia install path is grouped by.
+# deploy_user: optional, user you deploy application updates with
+#   (such as a jenkins user), related to has_data_dir.
+# deploy_group: optional, group you deploy application updates with (such as a
+#   jenkins group), relatedto has_data_dir.
+# tomcat_bin: optional, bin directory where the magnolia_control.sh is located.
+# tomcat_timezone: optional, sets a java timezone in setenv.sh
+#    ex. 'America/New_York'.
+# tomcat_max_heap: optional, sets max heap -Xmx in setenv.sh ex. '1536M'.
+# tomcat_min_heap: optional, sets min heap -Xms in setenv.sh ex. '1024M'.
+# tomcat_max_perm: optional, sets -XX:MaxPermSize in setenv.sh ex. '256m'.
+# tomcat_context_env: optional, sets a parameter in the tomcat context.xml file
+# used to configure magnolia based on the environment  ex. 'production'.
+# service_manage: optional, set to false by default.  if set to true, you should
+#   configure the service file location and template.
+# service_file_location: optional, location for service script, default
+#   set for ubuntu to /etc/init.d/magnolia.
+# service_file_template: optional, location of the puppet erb file.
 #
-# Variables
-# ----------
-# demo: set to '-demo' in download url if you want the demo included.  No need to change this variable.
-# magnolia_file_name: builds the name of the file you download from magnolia based on license_type, edition, demo, version & bundle format
-# magnolia_download_url: builds the download url based on the magnolia_file_name, edition, demo, version and license type
-# tomcat_service_dir: combines the cms_dir and tomcat_bin to create a location for the service to call the magnolia_control.sh script
-# 
+# Variables 
+# ---------- 
+# demo: set to '-demo' in download url if you want the demo included.
+# magnolia_file_name: builds the name of the file you download from magnolia 
+#   based on license_type, edition, demo, version & bundle format 
+# magnolia_download_url: builds the download url based on the
+#   magnolia_file_name, edition, demo, version and license type
+# tomcat_service_dir: combines the cms_dir and tomcat_bin to create a location
+#  for the service to call the magnolia_control.sh script
 #
 # Examples
 # --------
 #
-# Installs version 5.4.3 of the magnolia enterprise pro bundled with tomcat and the travel demo into
-# a generic directory called /opt/magnolia-cms.  The repository is stored inside the tomcat webapps
-# directory and Magnolia will run as root. A service will be created and set to running
-# @example
-#    class { 'magnolia':
-#      nexus_user     => 'yourname'
-#      nexus_password => 'yourpassword'
-#      
-#    }
+# Installs version 5.4.3 of the magnolia enterprise pro bundled with tomcat and
+# the travel demo into a generic directory called /opt/magnolia-cms.  The
+# repository is stored inside the tomcat webapps directory and Magnolia will run
+# as root. A service will be created and set to running.
+#
+# @example    
+#   class { 'magnolia':
+#     nexus_user     => 'yourname'
+#     nexus_password => 'yourpassword'
+#   }
 #
 # Authors
 # -------

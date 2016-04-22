@@ -1,8 +1,8 @@
 # Class: magnolia:::install
 # ===========================
 #
-# Uses Puppet::Archive to install one of two Magnolia CMS bundles with the travel demo and
-# Apache Tomcat included.
+# Uses Puppet::Archive to install one of two Magnolia CMS bundles with the 
+# travel demo and Apache Tomcat included.
 #
 # Parameters
 # ----------
@@ -16,10 +16,6 @@
 # Examples
 # --------
 #
-# @example
-#    class { 'magnolia':
-#      
-#    }
 #
 # Authors
 # -------
