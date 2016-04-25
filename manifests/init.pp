@@ -133,11 +133,11 @@ class magnolia (
   validate_re($edition, ['^community','^standard','^pro'], 'The Magnolia $edition parameter must be "community", "standard" or "pro".')
   validate_re($database, ['^derby','^postgresql'], 'The Magnolia $database parameter must be "derby" or "postgresql".')
   validate_re($bundle, ['^tomcat','^webapp','^empty'], 'The Magnolia $bundle parameter must be "tomcat", "webapp" or "empty".')
-  validate_bool($is_demo, 'The is_demo parameter must be either true or false')
-  validate_bool($has_data_dir, 'The has_data_dir parameter must be either true or false')
-  validate_absolute_path($cms_dir, 'The cms_dir parameter should be an absolute path')
-  validate_absolute_path($data_dir, ' The data_dir should be an absolute path')
-  validate_absolute_path($service_file_location, 'The service_file_location should be an absolute path')
+  #validate_bool($is_demo, 'The is_demo parameter must be either true or false')
+  #validate_bool($has_data_dir, 'The has_data_dir parameter must be either true or false')
+  #validate_absolute_path($cms_dir, 'The cms_dir parameter should be an absolute path')
+  #validate_absolute_path($data_dir, ' The data_dir should be an absolute path')
+  #validate_absolute_path($service_file_location, 'The service_file_location should be an absolute path')
 
   # set demo in file name
   if $magnolia::is_demo == true {
