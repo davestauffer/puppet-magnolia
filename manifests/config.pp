@@ -77,7 +77,8 @@ class magnolia::config inherits magnolia {
         shell   => '/bin/bash',
       }
     }
-
+  }
+  
   if $magnolia::tomcat_root_war == false {
     file { "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT":
       ensure    => absent,
