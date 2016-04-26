@@ -78,7 +78,12 @@ class magnolia::config inherits magnolia {
       }
     }
 
-    
+  if $magnolia::tomcat_root_war == false {
+    file { "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT":
+      ensure    => absent,
+      path      => "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT",
+      require   => Class[magnolia::install],
+    }
   }
 
   case $magnolia::database {

@@ -40,6 +40,8 @@
 # tomcat_max_perm: optional, sets -XX:MaxPermSize in setenv.sh ex. '256m'.
 # tomcat_context_env: optional, sets a parameter in the tomcat context.xml file
 # used to configure magnolia based on the environment  ex. 'production'.
+# tomcat_root_war: optional, default is true, false removes the war which
+# is recommended for production environments.
 # service_manage: optional, set to false by default.  if set to true, you should
 #   configure the service file location and template.
 # service_file_location: optional, location for service script, default
@@ -103,11 +105,13 @@ class magnolia (
   # Tomcat Settings
   $tomcat_bin            = '/apache-tomcat-7.0.64/bin',
   $tomcat_conf           = '/apache-tomcat-7.0.64/conf',
+  $tomcat_webapps        = '/apache-tomcat-7.0.64/webapps',
   $tomcat_timezone       = 'America/New_York',
   $tomcat_max_heap       = '1536M',
   $tomcat_min_heap       = '1024M',
   $tomcat_max_perm       = '256m',
   $tomcat_context_env    = 'production',
+  $tomcat_root_war       = 'true',
 
   # Database Settings
   $author_db_name        = undef,
