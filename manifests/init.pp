@@ -122,7 +122,7 @@ class magnolia (
   $service_file_template = 'magnolia/magnolia.service.erb',
   $service_manage        = true,
   $service_ensure        = running,
-  $service_enable        = true,
+  $service_enable        = false,
   $service_notify        = undef,
   $service_subscribe     = undef,
 
