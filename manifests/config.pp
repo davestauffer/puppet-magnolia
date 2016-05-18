@@ -22,10 +22,10 @@
 class magnolia::config inherits magnolia {
 
   limits::fragment {
-    "root/soft/nofile":
-    value => "10000";
-    "root/hard/nofile":
-    value => "50000";
+    'root/soft/nofile':
+    value => '10000';
+    'root/hard/nofile':
+    value => '50000';
   }
 
   file { $magnolia::cms_dir:
@@ -77,8 +77,14 @@ class magnolia::config inherits magnolia {
         shell   => '/bin/bash',
       }
     }
+  }
 
-    
+  if $magnolia::tomcat_root_war == false {
+    file { "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT":
+      ensure  => absent,
+      path    => "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT",
+      require => Class[magnolia::install],
+    }
   }
 
   case $magnolia::database {
