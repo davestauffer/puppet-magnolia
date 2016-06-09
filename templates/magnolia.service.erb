@@ -10,8 +10,11 @@
 # 
 ### END INIT INFO
 
-author_dir="/opt/magnolia-author/apache-tomcat-7.0.64/bin/"
-public_dir="/opt/magnolia-public/apache-tomcat-7.0.64/bin/"
+name="magnolia public"
+cmd="/opt/magnolia-public/apache-tomcat-7.0.64/bin/magnolia_control.sh"
+pid_file="/var/run/magnolia-public.pid"
+stdout_log="/var/log/magnolia-public.log"
+stderr_log="/var/log/magnolia-public.err"
 user=""
 
 get_pid() {
@@ -21,27 +24,6 @@ get_pid() {
 is_running() {
     [ -f "$pid_file" ] && ps `get_pid` > /dev/null 2>&1
 }
-
-case "$2" in
-    author )
-      name="magnolia author"
-      cmd="$author_dir/magnolia_control.sh"
-      pid_file="/var/run/magnolia-author.pid"
-      stdout_log="/var/log/magnolia-author.log"
-      stderr_log="/var/log/magnolia-author.err"
-      ;;
-    public )
-      name="magnolia public"
-      cmd="$public_dir/magnolia_control.sh"
-      pid_file="/var/run/magnolia-public.pid"
-      stdout_log="/var/log/magnolia-public.log"
-      stderr_log="/var/log/magnolia-public.err"
-      ;;
-    *)
-    echo "Usage: $0 {start|stop|restart|status} {author|public}"
-    exit 1
-    ;;
-esac
 
 case "$1" in
     start)
@@ -108,7 +90,7 @@ case "$1" in
     fi
     ;;
     *)
-    echo "Usage: $0 {start|stop|restart|status} {author|public}"
+    echo "Usage: $0 {start|stop|restart|status}"
     exit 1
     ;;
 esac

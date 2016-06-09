@@ -18,7 +18,7 @@
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Dave Stauffer, unless otherwise noted.
 #
 class magnolia::service (
 
