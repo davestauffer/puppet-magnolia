@@ -10,21 +10,107 @@
 # 
 ### END INIT INFO
 
-case "$1" in
- start)
-   <%= @tomcat_service_dir %>/magnolia_control.sh start
-   ;;
- stop)
-   <%= @tomcat_service_dir %>/magnolia_control.sh stop
-   sleep 10
-   ;;
- restart)
-   <%= @tomcat_service_dir %>/magnolia_control.sh stop
-   sleep 20
-   <%= @tomcat_service_dir %>/magnolia_control.sh start
-   ;;
- *)
-   echo "Usage: magnolia {start|stop|restart}" >&2
-   exit 3
-   ;;
+author_dir="/opt/magnolia-author/apache-tomcat-7.0.64/bin/"
+public_dir="/opt/magnolia-public/apache-tomcat-7.0.64/bin/"
+user=""
+
+get_pid() {
+    cat "$pid_file"
+}
+
+is_running() {
+    [ -f "$pid_file" ] && ps `get_pid` > /dev/null 2>&1
+}
+
+case "$2" in
+    author )
+      name="magnolia author"
+      cmd="$author_dir/magnolia_control.sh"
+      pid_file="/var/run/magnolia-author.pid"
+      stdout_log="/var/log/magnolia-author.log"
+      stderr_log="/var/log/magnolia-author.err"
+      ;;
+    public )
+      name="magnolia public"
+      cmd="$public_dir/magnolia_control.sh"
+      pid_file="/var/run/magnolia-public.pid"
+      stdout_log="/var/log/magnolia-public.log"
+      stderr_log="/var/log/magnolia-public.err"
+      ;;
+    *)
+    echo "Usage: $0 {start|stop|restart|status} {author|public}"
+    exit 1
+    ;;
 esac
+
+case "$1" in
+    start)
+    if is_running; then
+        echo "Already started"
+    else
+        echo "Starting $name"
+        cd "$dir"
+        if [ -z "$user" ]; then
+            sudo $cmd start & echo $! >> "$stdout_log" 2>> "$stderr_log"
+        else
+            sudo -u "$user" $cmd start & echo $! >> "$stdout_log" 2>> "$stderr_log"
+        fi
+        if ! is_running; then
+            echo "Unable to start, see $stdout_log and $stderr_log"
+            exit 1
+        fi
+    fi
+    ;;
+    stop)
+    if is_running; then
+        echo -n "Stopping $name.."
+        if [ -z "$user" ]; then
+            sudo $cmd stop >> "$stdout_log" 2>> "$stderr_log"
+        else
+            sudo -u "$user" $cmd stop >> "$stdout_log" 2>> "$stderr_log"
+        fi
+        for i in {1..10}
+        do
+            if ! is_running; then
+                break
+            fi
+
+            echo -n "."
+            sleep 10
+        done
+        if is_running; then
+            echo "Not stopped; may still be shutting down or shutdown may have failed"
+            exit 1
+        else
+            echo "Stopped"
+            if [ -f "$pid_file" ]; then
+                rm "$pid_file"
+            fi
+        fi
+    else
+        echo "Not running"
+    fi
+    ;;
+    restart)
+    $0 stop
+    if is_running; then
+        echo "Unable to stop, will not attempt to start"
+        exit 1
+    fi
+    $0 start
+    ;;
+    status)
+    if is_running; then
+        echo "Running"
+    else
+        echo "Stopped"
+        exit 1
+    fi
+    ;;
+    *)
+    echo "Usage: $0 {start|stop|restart|status} {author|public}"
+    exit 1
+    ;;
+esac
+
+exit 0

@@ -89,10 +89,10 @@ class magnolia::config inherits magnolia {
 
   case $magnolia::database {
     'postgresql': {
-      if $magnolia::magnolia_author != undef {
+      if $magnolia::author_db_name != undef {
         postgresql::server::database { $magnolia::author_db_name: }
       }
-      if $magnolia::magnolia_public != undef {
+      if $magnolia::public_db_name != undef {
         postgresql::server::database { $magnolia::public_db_name: }
       }
     }
