@@ -22,10 +22,10 @@
 class magnolia::config inherits magnolia {
 
   limits::fragment {
-    "root/soft/nofile":
-    value => "10000";
-    "root/hard/nofile":
-    value => "50000";
+    'root/soft/nofile':
+    value => '10000';
+    'root/hard/nofile':
+    value => '50000';
   }
 
   file { $magnolia::cms_dir:
@@ -77,17 +77,23 @@ class magnolia::config inherits magnolia {
         shell   => '/bin/bash',
       }
     }
+  }
 
-    
+  if $magnolia::tomcat_root_war == false {
+    file { "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT":
+      ensure  => absent,
+      path    => "${magnolia::cms_dir}${magnolia::tomcat_webapps}/ROOT",
+      require => Class[magnolia::install],
+    }
   }
 
   case $magnolia::database {
     'postgresql': {
-      if $magnolia::magnolia_author != undef {
-        postgresql::server::database { $magnolia::magnolia_author: }
+      if $magnolia::author_db_name != undef {
+        postgresql::server::database { $magnolia::author_db_name: }
       }
-      if $magnolia::magnolia_public != undef {
-        postgresql::server::database { $magnolia::magnolia_public: }
+      if $magnolia::public_db_name != undef {
+        postgresql::server::database { $magnolia::public_db_name: }
       }
     }
     default: {
