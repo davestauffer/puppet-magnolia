@@ -35,7 +35,7 @@ case "$1" in
         if [ -z "$user" ]; then
             sudo $cmd start >> "$stdout_log" 2>> "$stderr_log"
         else
-            sudo -u "$user" $cmd start & >> "$stdout_log" 2>> "$stderr_log"
+            sudo -u "$user" $cmd start >> "$stdout_log" 2>> "$stderr_log"
         fi
         if ! is_running; then
             echo "Unable to start, see $stdout_log and $stderr_log"
