@@ -118,7 +118,7 @@ class magnolia (
   $public_db_name        = undef,
   
   # Manage service
-  $service_file_location = '/etc/init.d/magnolia',
+  $service_file_location = '/etc/init.d/magnolia-public',
   $service_file_template = 'magnolia/magnolia.service.erb',
   $service_manage        = true,
   $service_ensure        = undef,
